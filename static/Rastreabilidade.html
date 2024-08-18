@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreabilidade</title>
+    <script>
+        async function submitForm(event) {
+            event.preventDefault(); // Previne o comportamento padrão do formulário
+
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/subconjuntos/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro na solicitação');
+                }
+
+                const result = await response.json();
+                console.log('Registro criado:', result);
+                alert('Registro criado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao criar registro:', error);
+                alert('Erro ao criar registro.');
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="box">
+        <form onsubmit="submitForm(event)">
+            <fieldset>
+                <legend><b>Rastreabilidade Subconjuntos</b></legend>
+
+                <label for="nomeSubconjunto"><b>Nome do Subconjunto:</b></label><br>
+                <select name="nome" id="nomeSubconjunto" required>
+                    <option value="" disabled selected>Selecione um subconjunto</option>
+                    <option value="Amortecimento do Plato">Amortecimento do Plato</option>
+                    <option value="Aparelho de Garra">Aparelho de Garra</option>
+                    <option value="Barra da Enforna">Barra da Enforna</option>
+                    <option value="Borrifador da Tessoura">Borrifador da Tessoura</option>
+                    <option value="Braço de Coroa">Braço de Coroa</option>
+                    <option value="Cadeira de Moldes">Cadeira de Moldes</option>
+                    <option value="Cadeira de Pré Moldes">Cadeira de Pré Moldes</option>
+                    <option value="Cartucho do M. de Punção">Cartucho do M. de Punção</option>
+                    <option value="Deflector LD">Deflector LD</option>
+                    <option value="Deflector LE">Deflector LE</option>
+                    <option value="Flauta do Vetflow">Flauta do Vetflow</option>
+                    <option value="Insert de Moldes">Insert de Moldes</option>
+                    <option value="Insert de Pré-Moldes">Insert de Pré-Moldes</option>
+                    <option value="Mancal do Cross">Mancal do Cross</option>
+                    <option value="Mecanismo de Punção">Mecanismo de Punção</option>
+                    <option value="Rejeitador de Gotas">Rejeitador de Gotas</option>
+                    <option value="Sup. de Cabeça de Sopro">Sup. de Cabeça de Sopro</option>
+                    <option value="Sup. de funil">Sup. de funil</option>
+                    <option value="Sup. De Garras">Sup. De Garras</option>
+                    <option value="Sup. De Plato">Sup. De Plato</option>
+                    <option value="Sup. De Tesoura">Sup. De Tesoura</option>
+                    <option value="Tampa da Val. de Res. p/ pré molde direita">Tampa da Val. de Res. p/ pré molde
+                        direita</option>
+                    <option value="Tampa da Val. de Res. p/ pré molde esquerda">Tampa da Val. de Res. p/ pré molde
+                        esquerda</option>
+                    <option value="Torre de Ventilação LD">Torre de Ventilação LD</option>
+                    <option value="Torre de Ventilação Le">Torre de Ventilação Le</option>
+                    <option value="Trasnfer">Trasnfer</option>
+                    <option value="Val. Borboleta">Val. Borboleta</option>
+                    <option value="Val. de ar do prato morto">Val. de ar do prato morto</option>
+                    <option value="Val. de Res. da Coroa">Val. de Res. da Coroa</option>
+                    <option value="Val. de Sopro final">Val. de Sopro final</option>
+                    <option value="Val. On/Off">Val. On/Off</option>
+                    <option value="Val. Parker 19">Val. Parker 19</option>
+                    <option value="Val. Parker 20">Val. Parker 20</option>
+                    <option value="Válvula NC">Válvula NC</option>
+                    <option value="Válvula NC/NC">Válvula NC/NC</option>
+                    <option value="Válvula de resfriamento vent. pré molde">Válvula de resfriamento vent. pré molde
+                    </option>
+                    <option value="Vávula NO/NC">Vávula NO/NC</option>
+                    <option value="Vertflow">Vertflow</option>
+                    <option value="Válvula de Vácuo">Válvula de Vácuo</option>
+                </select>
+                <br><br>
+
+                <label for="linha"><b>Linha:</b></label><br>
+                <select name="linha" id="linha" required>
+                    <option value="" disabled selected>Selecione uma linha</option>
+                    <option value="591">591</option>
+                    <option value="592">592</option>
+                    <option value="593">593</option>
+                    <option value="594">594</option>
+                    <option value="595">595</option>
+                    <option value="596">596</option>
+                </select>
+                <br><br>
+
+                <div class="inputBox">
+                    <input type="text" name="idsub" id="idSubconjunto" class="inputUser" required>
+                    <label for="idSubconjunto" class="labelInput">ID Subconjunto</label>
+                </div>
+
+                <label for="movimento"><b>Movimento:</b></label><br>
+                <select name="movimento" id="movimento" required>
+                    <option value="" disabled selected>Selecione um movimento</option>
+                    <option value="maquina">Máquina</option>
+                    <option value="retiradaCorretiva">Retirada Corretiva</option>
+                    <option value="emReparo">Em Reparo</option>
+                    <option value="almoxarifado">Almoxarifado</option>
+                    <option value="descarte">Descarte</option>
+                </select>
+                <br><br>
+
+                <label for="data"><b>Data:</b></label><br>
+                <input type="date" name="data" id="data" required>
+                <br><br>
+
+                <label for="defeito"><b>Defeitos:</b></label><br>
+                <select name="defeito" id="defeito" required>
+                    <option value="" disabled selected>Selecione um defeito</option>
+                    <option value="anelRaspador">Anel raspador com desgaste</option>
+                    <option value="copoInterno">Copo interno com desgaste</option>
+                    <option value="garrasDesincronizadas">Garras desincronizadas</option>
+                    <option value="garraQuebrada">Garra quebrada/Empenada</option>
+                    <option value="garraTravada">Garra Travada</option>
+                    <option value="anelSegmentoCilindro">Anel de Segmento do Cilindro quebrado</option>
+                    <option value="bobinaEletrica">Bobina eletrica com defeito</option>
+                    <option value="buchaDesgaste">Bucha com desgaste</option>
+                    <option value="buchaSolta">Bucha Solta</option>
+                    <option value="cadeiraSuja">Cadeira suja</option>
+                    <option value="carretelFolga">Carretel com folga</option>
+                    <option value="cilindroQuebrado">Cilindro Quebrado</option>
+                    <option value="conexaoDanificada">Conecxão danificada da mangueira</option>
+                    <option value="conjuntoFolga">Conjunto com folga</option>
+                    <option value="desgastePinoEqualizador">Desgaste do Pino Equalizador</option>
+                    <option value="desgasteCopinho">Desgaste do copinho</option>
+                    <option value="desgasteGrafites">Desgaste Natural dos Grafites</option>
+                    <option value="empenamento">Empenamento</option>
+                    <option value="entupimento">Entupimento</option>
+                    <option value="eixoAjusteTravado">Eixo de ajuste travado</option>
+                    <option value="eixoTravaEmpenado">Eixo trava Empenado</option>
+                    <option value="excessoSujidade">Excesso de sujidade</option>
+                    <option value="flautaEntupida">Flauta entupida</option>
+                    <option value="faltaPinoElastico">Falta do Pino Elastico</option>
+                    <option value="folga">Folga</option>
+                    <option value="folgaArticulacao">Folga na articulação</option>
+                    <option value="insertEmpenado">Insert empenado</option>
+                    <option value="insertoTravado">Inserto travado</option>
+                    <option value="laminasQueimadas">Lâminas queimadas</option>
+                    <option value="molaCansada">Mola Cansada</option>
+                    <option value="molaQuebrada">Mola quebrada</option>
+                    <option value="manipuloAcionamento">Manipulo de Acionamento Mecânico Travado</option>
+                    <option value="manipuloTravamento">Manipulo de Travamento Quebrado</option>
+                    <option value="pinoTravaDesgaste">Pino trava com desgaste</option>
+                    <option value="parafusoDanificado">Parafuso danificado</option>
+                    <option value="pusherEmpenado">Pusher Empenado</option>
+                    <option value="roscaEspanada">Rosca Espanada</option>
+                    <option value="roscaSemFimDanificada">Rosca do sem fim danificada</option>
+                    <option value="sensorDefeito">Sensor com defeito</option>
+                    <option value="suporteGuiaLagrima">Suporte de guia de lágrima agarrando</option>
+                    <option value="suporteEmpenado">Suporte empenado</option>
+                    <option value="tampaSemParafuso">Tampa sem parafuso</option>
+                    <option value="travamento">Travamento</option>
+                    <option value="vazamento">Vazamento</option>
+                    <option value="vavulaSemSinal">Vávula sem sinal</option>
+                    <option value="vareta">Vareta</option>
+                </select>
+                <br><br>
+
+                <div class="inputBox">
+                    <input type="text" name="tecnico" id="tecnico" class="inputUser" required>
+                    <label for="tecnico" class="labelInput">Técnico</label>
+                </div>
+
+                <div class="inputBox">
+                    <input type="text" name="comentario" id="comentario" class="inputUser" required>
+                    <label for="comentario" class="labelInput">Comentário</label>
+                </div>
+
+                <input type="submit" name="submit" id="submit" value="Gravar registro">
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>
